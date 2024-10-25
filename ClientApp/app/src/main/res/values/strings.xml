@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Client App</string>
+    <string name="equals">=</string>
+    <string name="result">Result</string>
+
+    <string-array name="operations_array">
+        <item>+</item>
+        <item>-</item>
+        <item>*</item>
+        <item>/</item>
+    </string-array>
+</resources>
