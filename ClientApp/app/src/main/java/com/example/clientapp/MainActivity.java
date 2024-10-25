@@ -27,12 +27,27 @@ public class MainActivity extends AppCompatActivity {
 
     Intent intent;
 
+    IntentFilter resultFilter;
+
+    BroadcastReceiver resultReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            if (intent != null && Objects.equals(intent.getAction(), "com.example.clientapp.RESULT")) {
+                float result = intent.getFloatExtra("result", 0);
+                resultView.setText(String.valueOf(result));
+            }
+
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        spinner = findViewById(R.id.operationSpinner);
+        spinner = findViewById(R.id.operatorsSpinner);
         button = findViewById(R.id.resultButton);
         resultView = findViewById(R.id.result);
 
@@ -41,24 +56,14 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
-                R.array.operations_array,
+                R.array.operators_array,
                 android.R.layout.simple_spinner_item
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        BroadcastReceiver sendResultReceiver = new BroadcastReceiver() {
-
-            @Override
-            public void onReceive(Context context, Intent intent) {
-
-                if (intent != null && Objects.equals(intent.getAction(), "SendResult")) {
-                    float result = intent.getFloatExtra("result", 0);
-                    resultView.setText(String.valueOf(result));
-                }
-
-            }
-        };
+        resultFilter = new IntentFilter("com.example.clientapp.RESULT");
+        registerReceiver(resultReceiver, resultFilter, Context.RECEIVER_EXPORTED);
 
     }
 
@@ -78,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (emptyNumber) return;
 
-        String operation = spinner.getSelectedItem().toString();
+        String operator = spinner.getSelectedItem().toString();
 
         int num1 = Integer.parseInt(number1.getText().toString());
         int num2 = Integer.parseInt(number2.getText().toString());
@@ -89,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 "com.example.serverapp.CalculatorService"
         ));
 
-        intent.putExtra("operation", operation);
+        intent.putExtra("operator", operator);
         intent.putExtra("number1", num1);
         intent.putExtra("number2", num2);
 

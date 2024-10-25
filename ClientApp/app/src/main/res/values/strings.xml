@@ -3,7 +3,7 @@
     <string name="equals">=</string>
     <string name="result">Result</string>
 
-    <string-array name="operations_array">
+    <string-array name="operators_array">
         <item>+</item>
         <item>-</item>
         <item>*</item>

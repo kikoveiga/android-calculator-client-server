@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import java.text.DecimalFormat;
+
 public class CalculatorService extends Service {
 
     private static final String TAG = "CalculatorService";
@@ -32,40 +34,25 @@ public class CalculatorService extends Service {
         if (intent != null) {
             Log.d(TAG, "Intent received!");
 
-            String operation = intent.getStringExtra("operation");
+            String operator = intent.getStringExtra("operator");
             int number1 = intent.getIntExtra("number1", 0);
             int number2 = intent.getIntExtra("number2", 0);
 
-            assert operation != null;
-            float result = calculateResult(operation, number1, number2);
+            assert operator != null;
+            float result = Calculator.calculateResult(operator, number1, number2);
 
-            Intent sendResultIntent = new Intent();
-            sendResultIntent.setAction("com.example.serverapp.RESULT");
-            sendResultIntent.putExtra("result", result);
+            DecimalFormat df = new DecimalFormat("#.##");
 
-            sendBroadcast(sendResultIntent);
+            Log.d(TAG, number1 + " " + operator + " " + number2 + " = " + df.format(result));
 
+            Intent resultIntent = new Intent();
+            resultIntent.setAction("com.example.clientapp.RESULT");
+            resultIntent.putExtra("result", result);
+
+            sendBroadcast(resultIntent);
         }
 
         return START_STICKY;
-    }
-    private float calculateResult(String operation, int num1, int num2) {
-
-        switch (operation) {
-            case "+":
-                return num1 + num2;
-
-            case  "-":
-                return num1 - num2;
-
-            case "*":
-                return num1 * num2;
-
-            case "/":
-                return (float) num1 / num2;
-        }
-
-        return 0;
     }
 
 }
