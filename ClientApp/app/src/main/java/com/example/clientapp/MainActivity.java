@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
         resultFilter = new IntentFilter("com.example.clientapp.RESULT");
+        // Requires sdk 33
         registerReceiver(resultReceiver, resultFilter, Context.RECEIVER_EXPORTED);
 
     }
