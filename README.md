@@ -43,9 +43,9 @@ After this problem was fixed, I finally got the Apps to communicate between them
 
 Also, it was essential to [use an Explicit Intent](https://stackoverflow.com/questions/27842430/service-intent-must-be-explicit-intent) rather than Implicit with a filtered action when starting the Service, as this is insecure and kept throwing this error:
     
-    ``` plaintext
-    Service Intent must be explicit: Intent { }
-    ```
+``` plaintext
+Service Intent must be explicit: Intent { }
+```
 
 To sent the result from the Server back to the Client, a simple <code>sendBroadcast</code> with an Implicit Intent this time was used. The Client app had a <code>BroadcastReceiver</code> listening for this Intent.
 
