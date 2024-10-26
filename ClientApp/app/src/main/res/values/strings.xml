@@ -2,6 +2,8 @@
     <string name="app_name">Client App</string>
     <string name="equals">=</string>
     <string name="result">Result</string>
+    <string name="first_number">First number.</string>
+    <string name="second_number">Second number.</string>
 
     <string-array name="operators_array">
         <item>+</item>
