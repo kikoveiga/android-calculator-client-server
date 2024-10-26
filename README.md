@@ -27,13 +27,13 @@ Next, make sure both apps are closed and run the **Client App**. The **Client Ap
 
 In the beginning, I tried to use a normal (Started) Service on the Server side, and i couldn't get it to work as this kind of error kept appearing:
     
-    ```plaintext
+    ``` plaintext
     Unable to start service Intent { } U=0: not found
     ```
 
 I finally came across this [link](https://stackoverflow.com/questions/67648647/android-11-starting-a-service-of-another-app), where it explained that starting from Android 11, this was necessary in the Client App's manifest:
 
-    ```xml
+    ``` xml
     <queries>
         <package android:name="com.example.serverapp" />
     </queries>
@@ -43,7 +43,7 @@ After this problem was fixed, I finally got the Apps to communicate between them
 
 Also, it was essential to [use an Explicit Intent](https://stackoverflow.com/questions/27842430/service-intent-must-be-explicit-intent) rather than Implicit with a filtered action when starting the Service, as this is insecure and kept throwing this error:
     
-        ```plaintext
+        ``` plaintext
         Service Intent must be explicit: Intent { }
         ```
 
