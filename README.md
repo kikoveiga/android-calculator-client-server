@@ -33,19 +33,19 @@ Unable to start service Intent { } U=0: not found
 
 I finally came across this [link](https://stackoverflow.com/questions/67648647/android-11-starting-a-service-of-another-app), where it explained that starting from Android 11, this was necessary in the Client App's manifest:
 
-    ``` xml
-    <queries>
-        <package android:name="com.example.serverapp" />
-    </queries>
-    ```
+``` xml
+<queries>
+    <package android:name="com.example.serverapp" />
+</queries>
+```
 
 After this problem was fixed, I finally got the Apps to communicate between them. The remaining problem was that I had to start the Server App manually before starting the Client App. Using a <code>ForegroundService</code> is the ideal solution, as now the Client App can start the Server App automatically.
 
 Also, it was essential to [use an Explicit Intent](https://stackoverflow.com/questions/27842430/service-intent-must-be-explicit-intent) rather than Implicit with a filtered action when starting the Service, as this is insecure and kept throwing this error:
     
-        ``` plaintext
-        Service Intent must be explicit: Intent { }
-        ```
+    ``` plaintext
+    Service Intent must be explicit: Intent { }
+    ```
 
 To sent the result from the Server back to the Client, a simple <code>sendBroadcast</code> with an Implicit Intent this time was used. The Client app had a <code>BroadcastReceiver</code> listening for this Intent.
 
