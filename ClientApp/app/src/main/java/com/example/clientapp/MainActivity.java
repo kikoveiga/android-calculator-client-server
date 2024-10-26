@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         intent = new Intent();
+        // Need to send an Explicit Intent when starting a Service
         intent.setComponent(new ComponentName(
             "com.example.serverapp",
                 "com.example.serverapp.CalculatorService"

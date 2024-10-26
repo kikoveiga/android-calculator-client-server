@@ -62,12 +62,14 @@ public class CalculatorService extends Service {
             Log.d(TAG, number1 + " " + operator + " " + number2 + " = " + df.format(result));
 
             Intent resultIntent = new Intent();
+            // Explicit intent to send the result
             resultIntent.setAction("com.example.clientapp.RESULT");
             resultIntent.putExtra("result", result);
 
             sendBroadcast(resultIntent);
         }
 
+        // In order to keep the service alive and receive more requests
         return START_STICKY;
     }
 
