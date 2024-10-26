@@ -47,10 +47,10 @@ Also, it was essential to [use an Explicit Intent](https://stackoverflow.com/que
 Service Intent must be explicit: Intent { }
 ```
 
-To sent the result from the Server back to the Client, a simple <code>sendBroadcast</code> with an Implicit Intent this time was used. The Client app had a <code>BroadcastReceiver</code> listening for this Intent.
-
-## Useful Links
+## Useful Information
 
 - [Android services](https://developer.android.com/develop/background-work/services)
 - [Android Intents](https://developer.android.com/reference/android/content/Intent)
+- [Android Spinners](https://developer.android.com/develop/ui/views/components/spinner)
+- Functions Documentation in Android Studio
 
